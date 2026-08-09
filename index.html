@@ -24,10 +24,10 @@ body{background:radial-gradient(ellipse at center,#1a1a2e 0%,#0a0a0a 100%);font-
 .page-back{transform:rotateY(180deg)}
 .page-cover{background:linear-gradient(135deg,var(--royal-blue) 0%,#0a0a1a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cream);text-align:center;padding:40px}
 .page-cover::before{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:2px solid var(--gold);border-radius:4px;opacity:0.4}
-.page-cover h1{font-family:'Playfair Display',serif;font-size:42px;color:var(--gold);margin-bottom:10px;letter-spacing:3px;animation:fadeInUp 1s ease}
-.page-cover .subtitle{font-size:16px;letter-spacing:6px;text-transform:uppercase;color:var(--gold-light);opacity:0.8;margin-top:8px;animation:fadeInUp 1.5s ease}
+.page-cover h1{font-family:'Playfair Display',serif;font-size:42px;color:var(--gold);margin-bottom:10px;letter-spacing:3px}
+.page-cover .subtitle{font-size:16px;letter-spacing:6px;text-transform:uppercase;color:var(--gold-light);opacity:0.8;margin-top:8px}
 .page-cover .ornament{width:60px;height:2px;background:var(--gold);margin:20px 0;position:relative}
-.page-cover .ornament::before,.page-cover .ornament::after{content:'\u25C6';position:absolute;color:var(--gold);font-size:12px;top:-7px}
+.page-cover .ornament::before,.page-cover .ornament::after{content:'\25C6';position:absolute;color:var(--gold);font-size:12px;top:-7px}
 .page-cover .ornament::before{left:-18px}.page-cover .ornament::after{right:-18px}
 .page-menu{background:var(--cream);padding:40px 30px;overflow-y:auto}
 .page-menu h2{font-family:'Playfair Display',serif;font-size:24px;color:var(--royal-blue);text-align:center;margin-bottom:5px;letter-spacing:1px}
@@ -37,7 +37,7 @@ body{background:radial-gradient(ellipse at center,#1a1a2e 0%,#0a0a0a 100%);font-
 .menu-item-info p{font-size:12px;color:#666;max-width:220px;line-height:1.4}
 .menu-item-price{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);font-weight:700;white-space:nowrap}
 .page-featured{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center}
-.page-featured .img-circle{width:180px;height:180px;border-radius:50%;border:3px solid var(--gold);box-shadow:0 0 30px rgba(201,162,39,0.3);margin-bottom:25px;animation:scaleIn 1s ease;background:url('https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400') center/cover}
+.page-featured .img-circle{width:180px;height:180px;border-radius:50%;border:3px solid var(--gold);box-shadow:0 0 30px rgba(201,162,39,0.3);margin-bottom:25px;background:url('https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400') center/cover}
 .page-featured h2{font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);margin-bottom:10px}
 .page-featured p{color:var(--cream);font-size:14px;line-height:1.6;max-width:280px;opacity:0.8}
 .page-featured .price-tag{margin-top:20px;font-family:'Playfair Display',serif;font-size:32px;color:var(--gold-light);font-weight:700}
@@ -50,7 +50,7 @@ body{background:radial-gradient(ellipse at center,#1a1a2e 0%,#0a0a0a 100%);font-
 .controls{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:15px;z-index:100}
 .control-btn{width:50px;height:50px;border-radius:50%;border:2px solid var(--gold);background:rgba(10,10,10,0.7);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;backdrop-filter:blur(10px)}
 .control-btn:hover{background:var(--gold);color:#0a0a0a;transform:scale(1.1);box-shadow:0 0 20px rgba(201,162,39,0.4)}
-.control-btn:disabled{opacity:0.3;cursor:allowed}
+.control-btn:disabled{opacity:0.3}
 .page-indicator{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);color:var(--gold-light);font-size:13px;letter-spacing:2px;z-index:100;opacity:0.6}
 .swipe-hint{position:fixed;bottom:15px;right:20px;color:var(--gold-light);font-size:11px;opacity:0.4;z-index:100;animation:pulse 2s infinite}
 .shimmer{position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);animation:shimmer 3s infinite}
@@ -66,7 +66,7 @@ body{background:radial-gradient(ellipse at center,#1a1a2e 0%,#0a0a0a 100%);font-
 <div class="header"><div class="logo">LE ROYAL<span>Restaurant</span></div><div class="nav-dots" id="navDots"></div></div>
 <div class="book-container"><div class="book" id="book"></div></div>
 <div class="page-indicator" id="pageIndicator">Page 1 / 6</div>
-<div class="controls"><button class="control-btn" id="prevBtn" onclick="prevPage()">&#8249;</button><button class="control-btn" id="nextBtn" onclick="nextPage()">&#8250;</button></div>
+<div class="controls"><button class="control-btn" id="prevBtn">&#8249;</button><button class="control-btn" id="nextBtn">&#8250;</button></div>
 <div class="swipe-hint">&#8592; swipe &#8594;</div>
 <script>
 var pages=[
@@ -97,39 +97,114 @@ var pages=[
 var book=document.getElementById("book");
 var navDots=document.getElementById("navDots");
 var pageIndicator=document.getElementById("pageIndicator");
-function rm(p){return'<div class="page-back page-menu"><h2>'+p.category+'</h2><div class="category-line"></div>'+p.items.map(function(i,d){return'<div class="menu-item" style="animation-delay:'+(0.1*(d+1))+'s"><div class="menu-item-info"><h3>'+i.name+'</h3><p>'+i.desc+'</p></div><div class="menu-item-price">'+i.price+'</div></div>'}).join("")+"</div>"}
-function rf(p){return'<div class="page-back page-featured"><div class="img-circle"></div><h2>'+p.title+'</h2><p>'+p.desc+'</p><div class="price-tag">'+p.price+'</div></div>'}
-function rc(p){return'<div class="page-back page-contact"><h2>Contactez-nous</h2><div class="contact-info">\ud83d\udccd '+p.address+'<br>\ud83d\udcde '+p.phone+'<br>\ud83d\udd50 Lun - Dim : 11h - 23h</div><button class="call-button" onclick="window.location.href=\'tel:'+p.phone.replace(/\s/g,"")+'\'">Appeler</button></div>'}
+
+function rm(p){
+  return '<div class="page-back page-menu"><h2>'+p.category+'</h2><div class="category-line"></div>'+
+    p.items.map(function(i,d){
+      return '<div class="menu-item" style="animation-delay:'+(0.1*(d+1))+'s"><div class="menu-item-info"><h3>'+i.name+'</h3><p>'+i.desc+'</p></div><div class="menu-item-price">'+i.price+'</div></div>';
+    }).join("")+'</div>';
+}
+function rf(p){
+  return '<div class="page-back page-featured"><div class="img-circle"></div><h2>'+p.title+'</h2><p>'+p.desc+'</p><div class="price-tag">'+p.price+'</div></div>';
+}
+function rc(p){
+  var cleanPhone = p.phone.replace(/\s/g,'');
+  return '<div class="page-back page-contact"><h2>Contactez-nous</h2><div class="contact-info">\ud83d\udccd '+p.address+'<br>\ud83d\udcde '+p.phone+'<br>\ud83d\udd50 Lun - Dim : 11h - 23h</div><button class="call-button" onclick="window.location.href=\'tel:'+cleanPhone+'\'">Appeler</button></div>';
+}
+
 function render(){
-book.innerHTML="";navDots.innerHTML="";
-pages.forEach(function(p,i){
-var el=document.createElement("div");el.className="page";el.style.zIndex=pages.length-i;
-var f="",b="";
-if(p.type==="cover"){f='<div class="page-front page-cover"><div class="shimmer"></div><h1>LE ROYAL</h1><div class="ornament"></div><p class="subtitle">Menu Gastronomique</p><p class="subtitle" style="margin-top:15px;font-size:12px;letter-spacing:3px">Cuisine Fine &amp; Saveurs</p></div>';b=rm(pages[1])}
-else if(p.type==="menu"){f=rm(p);var n=pages[i+1];if(n){b=n.type==="menu"?rm(n):n.type==="featured"?rf(n):n.type==="contact"?rc(n):'<div class="page-back page-cover"><h1 style="font-size:24px">Bon App\u00e9tit</h1></div>'}else{b='<div class="page-back page-cover"><h1 style="font-size:24px">Merci</h1></div>'}}
-else if(p.type==="featured"){f=rf(p);var n=pages[i+1];b=n?(n.type==="menu"?rm(n):rc(n)):'<div class="page-back page-cover"><h1 style="font-size:24px">Merci</h1></div>'}
-else if(p.type==="contact"){f=rc(p);b='<div class="page-back page-cover"><div class="shimmer"></div><h1 style="font-size:24px">\u00c0 Bient\u00f4t</h1><div class="ornament"></div><p class="subtitle">Le Royal</p></div>'}
-el.innerHTML=f+b;book.appendChild(el);
-var d=document.createElement("div");d.className="nav-dot"+(i===0?" active":"");d.onclick=function(){go(i)};navDots.appendChild(d)
-});
-up()}
+  book.innerHTML="";
+  navDots.innerHTML="";
+  pages.forEach(function(p,i){
+    var el=document.createElement("div");
+    el.className="page";
+    el.style.zIndex=pages.length-i;
+    var f="",b="";
+    if(p.type==="cover"){
+      f='<div class="page-front page-cover"><div class="shimmer"></div><h1>LE ROYAL</h1><div class="ornament"></div><p class="subtitle">Menu Gastronomique</p><p class="subtitle" style="margin-top:15px;font-size:12px;letter-spacing:3px">Cuisine Fine &amp; Saveurs</p></div>';
+      b=rm(pages[1]);
+    } else if(p.type==="menu"){
+      f=rm(p);
+      var n=pages[i+1];
+      if(n){
+        b=n.type==="menu"?rm(n):n.type==="featured"?rf(n):n.type==="contact"?rc(n):'<div class="page-back page-cover"><h1 style="font-size:24px">Bon App\u00e9tit</h1></div>';
+      } else {
+        b='<div class="page-back page-cover"><h1 style="font-size:24px">Merci</h1></div>';
+      }
+    } else if(p.type==="featured"){
+      f=rf(p);
+      var n=pages[i+1];
+      b=n?(n.type==="menu"?rm(n):rc(n)):'<div class="page-back page-cover"><h1 style="font-size:24px">Merci</h1></div>';
+    } else if(p.type==="contact"){
+      f=rc(p);
+      b='<div class="page-back page-cover"><div class="shimmer"></div><h1 style="font-size:24px">\u00c0 Bient\u00f4t</h1><div class="ornament"></div><p class="subtitle">Le Royal</p></div>';
+    }
+    el.innerHTML=f+b;
+    book.appendChild(el);
+    var d=document.createElement("div");
+    d.className="nav-dot"+(i===0?" active":"");
+    d.onclick=function(){go(i)};
+    navDots.appendChild(d);
+  });
+  up();
+}
+
 var cp=0,fl=false;
-function up(){document.querySelectorAll(".page").forEach(function(e,i){if(i<cp){e.classList.add("flipped");e.style.zIndex=i+1}else{e.classList.remove("flipped");e.style.zIndex=pages.length-i}});
-document.querySelectorAll(".nav-dot").forEach(function(d,i){d.classList.toggle("active",i===cp)});
-pageIndicator.textContent="Page "+(cp+1)+" / "+pages.length;
-document.getElementById("prevBtn").disabled=cp===0;
-document.getElementById("nextBtn").disabled=cp===pages.length-1}
-function next(){if(cp<pages.length-1&&!fl){fl=true;cp++;up();setTimeout(function(){fl=false},800)}}
-function prev(){if(cp>0&&!fl){fl=true;cp--;up();setTimeout(function(){fl=false},800)}}
-function go(n){if(!fl){fl=true;cp=n;up();setTimeout(function(){fl=false},800)}}
+
+function up(){
+  document.querySelectorAll(".page").forEach(function(e,i){
+    if(i<cp){e.classList.add("flipped");e.style.zIndex=i+1}
+    else{e.classList.remove("flipped");e.style.zIndex=pages.length-i}
+  });
+  document.querySelectorAll(".nav-dot").forEach(function(d,i){d.classList.toggle("active",i===cp)});
+  pageIndicator.textContent="Page "+(cp+1)+" / "+pages.length;
+  document.getElementById("prevBtn").disabled=cp===0;
+  document.getElementById("nextBtn").disabled=cp===pages.length-1;
+}
+
+function nextPage(){
+  if(cp<pages.length-1&&!fl){fl=true;cp++;up();setTimeout(function(){fl=false},800)}
+}
+function prevPage(){
+  if(cp>0&&!fl){fl=true;cp--;up();setTimeout(function(){fl=false},800)}
+}
+function go(n){
+  if(!fl){fl=true;cp=n;up();setTimeout(function(){fl=false},800)}
+}
+
+document.getElementById("prevBtn").addEventListener("click",prevPage);
+document.getElementById("nextBtn").addEventListener("click",nextPage);
+
 var tx=0,te=0;
 document.addEventListener("touchstart",function(e){tx=e.changedTouches[0].screenX});
-document.addEventListener("touchend",function(e){te=e.changedTouches[0].screenX;if(te<tx-50)next();else if(te>tx+50)prev()});
-document.addEventListener("keydown",function(e){if(e.key==="ArrowLeft")prev();if(e.key==="ArrowRight")next()});
-var c=document.getElementById("particles"),cx=c.getContext("2d"),ps=[];
-function ip(){c.width=innerWidth;c.height=innerHeight;ps=[];for(var i=0;i<Math.min(60,Math.floor(innerWidth/20));i++){ps.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+0.5,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,o:Math.random()*0.5+0.1})}}
-function ap(){cx.clearRect(0,0,c.width,c.height);ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fillStyle="rgba(201,162,39,"+p.o+")";cx.fill()});requestAnimationFrame(ap)}
-ip();ap();addEventListener("resize",ip);render();
+document.addEventListener("touchend",function(e){te=e.changedTouches[0].screenX;if(te<tx-50)nextPage();else if(te>tx+50)prevPage()});
+document.addEventListener("keydown",function(e){if(e.key==="ArrowLeft")prevPage();if(e.key==="ArrowRight")nextPage()});
+
+var c=document.getElementById("particles");
+var cx=c.getContext("2d");
+var ps=[];
+function ip(){
+  c.width=innerWidth;c.height=innerHeight;ps=[];
+  for(var i=0;i<Math.min(60,Math.floor(innerWidth/20));i++){
+    ps.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+0.5,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,o:Math.random()*0.5+0.1});
+  }
+}
+function ap(){
+  cx.clearRect(0,0,c.width,c.height);
+  ps.forEach(function(p){
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0||p.x>c.width)p.vx*=-1;
+    if(p.y<0||p.y>c.height)p.vy*=-1;
+    cx.beginPath();
+    cx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    cx.fillStyle="rgba(201,162,39,"+p.o+")";
+    cx.fill();
+  });
+  requestAnimationFrame(ap);
+}
+ip();ap();
+addEventListener("resize",ip);
+render();
 </script>
 </body>
 </html>
