@@ -165,10 +165,11 @@ function injectAddButtons(){
       var btn=document.createElement("button");
       btn.className="add-btn";
       btn.textContent="+";
-      // Block ALL events from reaching StPageFlip (mousedown, touchstart, click)
-      ["mousedown","touchstart","touchend","click","pointerdown","pointerup"].forEach(function(ev){
+      // Block StPageFlip from receiving mouse/touch events (prevents page flip on + click)
+      ["mousedown","touchstart","pointerdown"].forEach(function(ev){
         btn.addEventListener(ev,function(e){e.stopPropagation();e.preventDefault();e.stopImmediatePropagation();},{capture:true});
       });
+      // Click handler adds to cart
       btn.addEventListener("click",function(e){e.stopPropagation();e.preventDefault();addToCart(name,price);});
       placeholder.appendChild(btn);
     }
