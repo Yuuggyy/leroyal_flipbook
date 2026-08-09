@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Le Royal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#c9a227;--gold-light:#e8d588;--royal-blue:#1a2a6c;--cream:#f5f0e8}
+body{background:radial-gradient(ellipse at center,#1a1a2e 0%,#0a0a0a 100%);font-family:'Inter',sans-serif;overflow:hidden;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;perspective:2000px}
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.header{position:fixed;top:0;left:0;width:100%;padding:20px 30px;z-index:100;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,rgba(10,10,10,0.9) 0%,transparent 100%)}
+.logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--gold);letter-spacing:2px;text-transform:uppercase}
+.logo span{color:var(--cream);font-weight:400;font-size:14px;display:block;letter-spacing:4px}
+.nav-dots{display:flex;gap:10px}
+.nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:all 0.4s}
+.nav-dot.active{background:var(--gold);box-shadow:0 0 12px var(--gold);transform:scale(1.3)}
+.book-container{position:relative;width:90vw;max-width:800px;height:75vh;max-height:600px;z-index:10;transform-style:preserve-3d}
+.book{position:relative;width:100%;height:100%;transform-style:preserve-3d}
+.page{position:absolute;width:100%;height:100%;top:0;left:0;border-radius:8px;overflow:hidden;backface-visibility:hidden;transform-origin:left center;transform-style:preserve-3d;transition:transform 1s cubic-bezier(0.645,0.045,0.355,1);box-shadow:0 0 40px rgba(0,0,0,0.5)}
+.page.flipped{transform:rotateY(-180deg)}
+.page-front,.page-back{position:absolute;width:100%;height:100%;top:0;left:0;backface-visibility:hidden;overflow:hidden;border-radius:8px}
+.page-back{transform:rotateY(180deg)}
+.page-cover{background:linear-gradient(135deg,var(--royal-blue) 0%,#0a0a1a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cream);text-align:center;padding:40px}
+.page-cover::before{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:2px solid var(--gold);border-radius:4px;opacity:0.4}
+.page-cover h1{font-family:'Playfair Display',serif;font-size:42px;color:var(--gold);margin-bottom:10px;letter-spacing:3px;animation:fadeInUp 1s ease}
+.page-cover .subtitle{font-size:16px;letter-spacing:6px;text-transform:uppercase;color:var(--gold-light);opacity:0.8;margin-top:8px;animation:fadeInUp 1.5s ease}
+.page-cover .ornament{width:60px;height:2px;background:var(--gold);margin:20px 0;position:relative}
+.page-cover .ornament::before,.page-cover .ornament::after{content:'\u25C6';position:absolute;color:var(--gold);font-size:12px;top:-7px}
+.page-cover .ornament::before{left:-18px}.page-cover .ornament::after{right:-18px}
+.page-menu{background:var(--cream);padding:40px 30px;overflow-y:auto}
+.page-menu h2{font-family:'Playfair Display',serif;font-size:24px;color:var(--royal-blue);text-align:center;margin-bottom:5px;letter-spacing:1px}
+.page-menu .category-line{width:80px;height:2px;background:var(--gold);margin:8px auto 25px}
+.menu-item{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;padding-bottom:15px;border-bottom:1px dotted rgba(0,0,0,0.15);opacity:0;animation:fadeInUp 0.6s ease forwards}
+.menu-item-info h3{font-family:'Playfair Display',serif;font-size:16px;color:#222;margin-bottom:3px}
+.menu-item-info p{font-size:12px;color:#666;max-width:220px;line-height:1.4}
+.menu-item-price{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);font-weight:700;white-space:nowrap}
+.page-featured{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center}
+.page-featured .img-circle{width:180px;height:180px;border-radius:50%;border:3px solid var(--gold);box-shadow:0 0 30px rgba(201,162,39,0.3);margin-bottom:25px;animation:scaleIn 1s ease;background:url('https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400') center/cover}
+.page-featured h2{font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);margin-bottom:10px}
+.page-featured p{color:var(--cream);font-size:14px;line-height:1.6;max-width:280px;opacity:0.8}
+.page-featured .price-tag{margin-top:20px;font-family:'Playfair Display',serif;font-size:32px;color:var(--gold-light);font-weight:700}
+.page-contact{background:linear-gradient(135deg,var(--royal-blue) 0%,#0a0a1a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center;color:var(--cream)}
+.page-contact::before{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:2px solid var(--gold);border-radius:4px;opacity:0.3}
+.page-contact h2{font-family:'Playfair Display',serif;font-size:32px;color:var(--gold);margin-bottom:20px}
+.contact-info{font-size:14px;line-height:2;opacity:0.9}
+.call-button{margin-top:25px;padding:15px 40px;background:var(--gold);color:#0a0a0a;border:none;border-radius:30px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.3s;letter-spacing:1px;text-transform:uppercase}
+.call-button:hover{transform:scale(1.05);box-shadow:0 5px 25px rgba(201,162,39,0.4)}
+.controls{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:15px;z-index:100}
+.control-btn{width:50px;height:50px;border-radius:50%;border:2px solid var(--gold);background:rgba(10,10,10,0.7);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;backdrop-filter:blur(10px)}
+.control-btn:hover{background:var(--gold);color:#0a0a0a;transform:scale(1.1);box-shadow:0 0 20px rgba(201,162,39,0.4)}
+.control-btn:disabled{opacity:0.3;cursor:allowed}
+.page-indicator{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);color:var(--gold-light);font-size:13px;letter-spacing:2px;z-index:100;opacity:0.6}
+.swipe-hint{position:fixed;bottom:15px;right:20px;color:var(--gold-light);font-size:11px;opacity:0.4;z-index:100;animation:pulse 2s infinite}
+.shimmer{position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);animation:shimmer 3s infinite}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scaleIn{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
+@keyframes pulse{0%,100%{opacity:0.4}50%{opacity:0.8}}
+@keyframes shimmer{0%{left:-100%}100%{left:200%}}
+@media(max-width:600px){.book-container{width:92vw;height:70vh}.page-cover h1{font-size:32px}.page-featured .img-circle{width:140px;height:140px}.menu-item-info h3{font-size:14px}.menu-item-info p{font-size:11px;max-width:180px}.menu-item-price{font-size:15px}.page-menu{padding:30px 20px}.logo{font-size:22px}.header{padding:15px 20px}}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<div class="header"><div class="logo">LE ROYAL<span>Restaurant</span></div><div class="nav-dots" id="navDots"></div></div>
+<div class="book-container"><div class="book" id="book"></div></div>
+<div class="page-indicator" id="pageIndicator">Page 1 / 6</div>
+<div class="controls"><button class="control-btn" id="prevBtn" onclick="prevPage()">&#8249;</button><button class="control-btn" id="nextBtn" onclick="nextPage()">&#8250;</button></div>
+<div class="swipe-hint">&#8592; swipe &#8594;</div>
+<script>
+var pages=[
+{type:"cover"},
+{type:"menu",category:"Entr\u00e9es",items:[
+{name:"Salade C\u00e9sar Royale",desc:"Laitue romaine, parmesan, cro\u00fbtons, poulet grill\u00e9, sauce maison",price:"12$"},
+{name:"Bruschetta M\u00e9diterran\u00e9e",desc:"Pain grill\u00e9, tomates fra\u00eeches, basilic, mozzarella",price:"8$"},
+{name:"Carpaccio de B\u0153uf",desc:"Fines tranches de b\u0153uf, roquette, parmesan, huile de truffe",price:"15$"},
+{name:"Soupe de Poissons",desc:"Bouillon de la mer, safran, cro\u00fbtons, rouille",price:"10$"},
+{name:"Foie Gras Po\u00eal\u00e9",desc:"Foie gras, chutney de figues, pain brioch\u00e9",price:"18$"}
+]},
+{type:"menu",category:"Plats Principaux",items:[
+{name:"Filet de B\u0153uf Rossini",desc:"Filet de b\u0153uf, foie gras, sauce P\u00e9rigueux, gratin dauphinois",price:"28$"},
+{name:"Poulet Brais\u00e9 Royal",desc:"Poulet fermier, sauce moutarde, l\u00e9gumes de saison, riz pilaf",price:"16$"},
+{name:"Poisson du March\u00e9",desc:"Filet de poisson, beurre blanc, asperges, riz safran\u00e9",price:"22$"},
+{name:"C\u00f4telette d'Agneau",desc:"C\u00f4telettes, jus d'herbes, pur\u00e9e de patate douce",price:"24$"}
+]},
+{type:"featured",title:"Homard Thermidor",desc:"Homard frais, sauce thermidor, gratin\u00e9 au four. Notre plat signature.",price:"45$"},
+{type:"menu",category:"Desserts",items:[
+{name:"Cr\u00e8me Br\u00fbl\u00e9e",desc:"Cr\u00e8me vanille de Madagascar, caramel croustillant",price:"8$"},
+{name:"Fondant au Chocolat",desc:"C\u0153ur coulant, glace vanille, coulis de fruits rouges",price:"9$"},
+{name:"Tarte Tatin",desc:"Pommes caram\u00e9lis\u00e9es, p\u00e2te feuillet\u00e9e, glace vanille",price:"8$"},
+{name:"Profiteroles",desc:"P\u00e2te \u00e0 choux, glace vanille, sauce chocolat chaud",price:"9$"},
+{name:"Macarons Assortis",desc:"S\u00e9lection de 6 macarons, parfums du jour",price:"12$"}
+]},
+{type:"contact",phone:"+243 999 992 030",address:"Avenue du Commerce, Kinshasa, RDC"}
+];
+var book=document.getElementById("book");
+var navDots=document.getElementById("navDots");
+var pageIndicator=document.getElementById("pageIndicator");
+function rm(p){return'<div class="page-back page-menu"><h2>'+p.category+'</h2><div class="category-line"></div>'+p.items.map(function(i,d){return'<div class="menu-item" style="animation-delay:'+(0.1*(d+1))+'s"><div class="menu-item-info"><h3>'+i.name+'</h3><p>'+i.desc+'</p></div><div class="menu-item-price">'+i.price+'</div></div>'}).join("")+"</div>"}
+function rf(p){return'<div class="page-back page-featured"><div class="img-circle"></div><h2>'+p.title+'</h2><p>'+p.desc+'</p><div class="price-tag">'+p.price+'</div></div>'}
+function rc(p){return'<div class="page-back page-contact"><h2>Contactez-nous</h2><div class="contact-info">\ud83d\udccd '+p.address+'<br>\ud83d\udcde '+p.phone+'<br>\ud83d\udd50 Lun - Dim : 11h - 23h</div><button class="call-button" onclick="window.location.href=\'tel:'+p.phone.replace(/\s/g,"")+'\'">Appeler</button></div>'}
+function render(){
+book.innerHTML="";navDots.innerHTML="";
+pages.forEach(function(p,i){
+var el=document.createElement("div");el.className="page";el.style.zIndex=pages.length-i;
+var f="",b="";
+if(p.type==="cover"){f='<div class="page-front page-cover"><div class="shimmer"></div><h1>LE ROYAL</h1><div class="ornament"></div><p class="subtitle">Menu Gastronomique</p><p class="subtitle" style="margin-top:15px;font-size:12px;letter-spacing:3px">Cuisine Fine &amp; Saveurs</p></div>';b=rm(pages[1])}
+else if(p.type==="menu"){f=rm(p);var n=pages[i+1];if(n){b=n.type==="menu"?rm(n):n.type==="featured"?rf(n):n.type==="contact"?rc(n):'<div class="page-back page-cover"><h1 style="font-size:24px">Bon App\u00e9tit</h1></div>'}else{b='<div class="page-back page-cover"><h1 style="font-size:24px">Merci</h1></div>'}}
+else if(p.type==="featured"){f=rf(p);var n=pages[i+1];b=n?(n.type==="menu"?rm(n):rc(n)):'<div class="page-back page-cover"><h1 style="font-size:24px">Merci</h1></div>'}
+else if(p.type==="contact"){f=rc(p);b='<div class="page-back page-cover"><div class="shimmer"></div><h1 style="font-size:24px">\u00c0 Bient\u00f4t</h1><div class="ornament"></div><p class="subtitle">Le Royal</p></div>'}
+el.innerHTML=f+b;book.appendChild(el);
+var d=document.createElement("div");d.className="nav-dot"+(i===0?" active":"");d.onclick=function(){go(i)};navDots.appendChild(d)
+});
+up()}
+var cp=0,fl=false;
+function up(){document.querySelectorAll(".page").forEach(function(e,i){if(i<cp){e.classList.add("flipped");e.style.zIndex=i+1}else{e.classList.remove("flipped");e.style.zIndex=pages.length-i}});
+document.querySelectorAll(".nav-dot").forEach(function(d,i){d.classList.toggle("active",i===cp)});
+pageIndicator.textContent="Page "+(cp+1)+" / "+pages.length;
+document.getElementById("prevBtn").disabled=cp===0;
+document.getElementById("nextBtn").disabled=cp===pages.length-1}
+function next(){if(cp<pages.length-1&&!fl){fl=true;cp++;up();setTimeout(function(){fl=false},800)}}
+function prev(){if(cp>0&&!fl){fl=true;cp--;up();setTimeout(function(){fl=false},800)}}
+function go(n){if(!fl){fl=true;cp=n;up();setTimeout(function(){fl=false},800)}}
+var tx=0,te=0;
+document.addEventListener("touchstart",function(e){tx=e.changedTouches[0].screenX});
+document.addEventListener("touchend",function(e){te=e.changedTouches[0].screenX;if(te<tx-50)next();else if(te>tx+50)prev()});
+document.addEventListener("keydown",function(e){if(e.key==="ArrowLeft")prev();if(e.key==="ArrowRight")next()});
+var c=document.getElementById("particles"),cx=c.getContext("2d"),ps=[];
+function ip(){c.width=innerWidth;c.height=innerHeight;ps=[];for(var i=0;i<Math.min(60,Math.floor(innerWidth/20));i++){ps.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+0.5,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,o:Math.random()*0.5+0.1})}}
+function ap(){cx.clearRect(0,0,c.width,c.height);ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fillStyle="rgba(201,162,39,"+p.o+")";cx.fill()});requestAnimationFrame(ap)}
+ip();ap();addEventListener("resize",ip);render();
+</script>
+</body>
+</html>
