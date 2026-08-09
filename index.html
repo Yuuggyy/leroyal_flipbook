@@ -95,10 +95,10 @@ body{font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-ite
 <div id="book-container" style="display:none">
   <div id="book">
     <div class="page-item" data-density="hard"><div class="page-cover"><div class="shimmer"></div><h1>Le Royal</h1><div class="ornament"></div><p class="subtitle">Menu</p><p class="subtitle" style="margin-top:15px;font-size:11px;letter-spacing:3px">Kinshasa</p></div></div>
-    <div class="page-item"><div class="page-menu"><h2>Burgers</h2><div class="category-line"></div><div class="menu-item"><div class="menu-item-info"><h3>Classic Burger</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">5$</div><button class="add-btn" onclick="event.stopPropagation();addToCart('Classic Burger',5.0)">+</button></div></div><div class="menu-item"><div class="menu-item-info"><h3>Royal Beef Burger</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">7$</div><button class="add-btn" onclick="event.stopPropagation();addToCart('Royal Beef Burger',7.0)">+</button></div></div><div class="menu-item"><div class="menu-item-info"><h3>Cheese Burger</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">6$</div><button class="add-btn" onclick="event.stopPropagation();addToCart('Cheese Burger',6.0)">+</button></div></div><div class="menu-item"><div class="menu-item-info"><h3>Chicken Burger</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">5.5$</div><button class="add-btn" onclick="event.stopPropagation();addToCart('Chicken Burger',5.5)">+</button></div></div></div></div>
-    <div class="page-item"><div class="page-menu"><h2>Frittes & Accompagnements</h2><div class="category-line"></div><div class="menu-item"><div class="menu-item-info"><h3>Frittes</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">2.5$</div><button class="add-btn" onclick="event.stopPropagation();addToCart('Frittes',2.5)">+</button></div></div><div class="menu-item"><div class="menu-item-info"><h3>Frittes spéciales</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">3.5$</div><button class="add-btn" onclick="event.stopPropagation();addToCart('Frittes spéciales',3.5)">+</button></div></div></div></div>
-    <div class="page-item"><div class="page-menu"><h2>Fruits de mer</h2><div class="category-line"></div><div class="menu-item"><div class="menu-item-info"><h3>Poisson frit</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">8$</div><button class="add-btn" onclick="event.stopPropagation();addToCart('Poisson frit',8.0)">+</button></div></div><div class="menu-item"><div class="menu-item-info"><h3>Crevettes grillées</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">12$</div><button class="add-btn" onclick="event.stopPropagation();addToCart('Crevettes grillées',12.0)">+</button></div></div><div class="menu-item"><div class="menu-item-info"><h3>Plateau fruits de mer</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">18$</div><button class="add-btn" onclick="event.stopPropagation();addToCart('Plateau fruits de mer',18.0)">+</button></div></div></div></div>
-    <div class="page-item"><div class="page-menu"><h2>Boissons</h2><div class="category-line"></div><div class="menu-item"><div class="menu-item-info"><h3>Coca Cola</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">2$</div><button class="add-btn" onclick="event.stopPropagation();addToCart('Coca Cola',2.0)">+</button></div></div><div class="menu-item"><div class="menu-item-info"><h3>Jus naturel</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">2.5$</div><button class="add-btn" onclick="event.stopPropagation();addToCart('Jus naturel',2.5)">+</button></div></div><div class="menu-item"><div class="menu-item-info"><h3>Eau minérale</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">1$</div><button class="add-btn" onclick="event.stopPropagation();addToCart('Eau minérale',1.0)">+</button></div></div></div></div>
+    <div class="page-item"><div class="page-menu"><h2>Burgers</h2><div class="category-line"></div><div class="menu-item" data-name="Classic Burger" data-price="5.0"><div class="menu-item-info"><h3>Classic Burger</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">5$</div><div class="add-btn-placeholder"></div></div></div><div class="menu-item" data-name="Royal Beef Burger" data-price="7.0"><div class="menu-item-info"><h3>Royal Beef Burger</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">7$</div><div class="add-btn-placeholder"></div></div></div><div class="menu-item" data-name="Cheese Burger" data-price="6.0"><div class="menu-item-info"><h3>Cheese Burger</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">6$</div><div class="add-btn-placeholder"></div></div></div><div class="menu-item" data-name="Chicken Burger" data-price="5.5"><div class="menu-item-info"><h3>Chicken Burger</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">5.5$</div><div class="add-btn-placeholder"></div></div></div></div></div>
+    <div class="page-item"><div class="page-menu"><h2>Frittes & Accompagnements</h2><div class="category-line"></div><div class="menu-item" data-name="Frittes" data-price="2.5"><div class="menu-item-info"><h3>Frittes</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">2.5$</div><div class="add-btn-placeholder"></div></div></div><div class="menu-item" data-name="Frittes spéciales" data-price="3.5"><div class="menu-item-info"><h3>Frittes spéciales</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">3.5$</div><div class="add-btn-placeholder"></div></div></div></div></div>
+    <div class="page-item"><div class="page-menu"><h2>Fruits de mer</h2><div class="category-line"></div><div class="menu-item" data-name="Poisson frit" data-price="8.0"><div class="menu-item-info"><h3>Poisson frit</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">8$</div><div class="add-btn-placeholder"></div></div></div><div class="menu-item" data-name="Crevettes grillées" data-price="12.0"><div class="menu-item-info"><h3>Crevettes grillées</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">12$</div><div class="add-btn-placeholder"></div></div></div><div class="menu-item" data-name="Plateau fruits de mer" data-price="18.0"><div class="menu-item-info"><h3>Plateau fruits de mer</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">18$</div><div class="add-btn-placeholder"></div></div></div></div></div>
+    <div class="page-item"><div class="page-menu"><h2>Boissons</h2><div class="category-line"></div><div class="menu-item" data-name="Coca Cola" data-price="2.0"><div class="menu-item-info"><h3>Coca Cola</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">2$</div><div class="add-btn-placeholder"></div></div></div><div class="menu-item" data-name="Jus naturel" data-price="2.5"><div class="menu-item-info"><h3>Jus naturel</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">2.5$</div><div class="add-btn-placeholder"></div></div></div><div class="menu-item" data-name="Eau minérale" data-price="1.0"><div class="menu-item-info"><h3>Eau minérale</h3><p></p></div><div class="menu-item-right"><div class="menu-item-price">1$</div><div class="add-btn-placeholder"></div></div></div></div></div>
     <div class="page-item" data-density="hard"><div class="page-contact"><h2>Contactez-nous</h2><div class="contact-info">📍 Kinshasa, RDC<br>📞 +243 980 844 766<br>🕐 Lun - Dim : 11h - 23h</div><button class="call-button" onclick="event.stopPropagation();event.preventDefault();window.location.href='tel:243980844766'">Appeler</button><button class="waiter-button" onclick="event.stopPropagation();callWaiter()">Appeler le serveur</button></div></div>
   </div>
 </div>
@@ -147,9 +147,44 @@ function initBook(){
   var navDots=document.getElementById("navDots");
   navDots.innerHTML="";
   if(totalPages<=12){for(var i=0;i<totalPages;i++){var d=document.createElement("div");d.className="nav-dot"+(i===0?" active":"");(function(idx){d.onclick=function(){if(pageFlip&&Date.now()-lastFlipTime>400){pageFlip.flip(idx);lastFlipTime=Date.now()}}})(i);navDots.appendChild(d);}}else{navDots.innerHTML='<span style="color:var(--gold-light);font-size:11px;opacity:0.7">'+totalPages+' pages</span>';}
-  pageFlip.on("flip",function(e){updateUI(e.data)});
+  pageFlip.on("flip",function(e){updateUI(e.data);injectAddButtons()});
   pageFlip.on("changeState",function(e){if(e.data==="read")updateUI()});
   updateUI();
+  // Inject add buttons after StPageFlip renders
+  setTimeout(function(){
+    var menuItems=document.querySelectorAll(".page-item .menu-item, .stf__item .menu-item");
+    menuItems.forEach(function(mi){
+      if(mi.querySelector(".add-btn"))return;
+      var name=mi.getAttribute("data-name");
+      var price=parseFloat(mi.getAttribute("data-price"));
+      if(!name)return;
+      var placeholder=mi.querySelector(".add-btn-placeholder");
+      if(placeholder){
+        var btn=document.createElement("button");
+        btn.className="add-btn";
+        btn.textContent="+";
+        btn.addEventListener("click",function(e){e.stopPropagation();e.preventDefault();addToCart(name,price);});
+        placeholder.appendChild(btn);
+      }
+    });
+  },500);
+}
+function injectAddButtons(){
+  var menuItems=document.querySelectorAll(".page-item .menu-item, .stf__item .menu-item");
+  menuItems.forEach(function(mi){
+    if(mi.querySelector(".add-btn"))return;
+    var name=mi.getAttribute("data-name");
+    var price=parseFloat(mi.getAttribute("data-price"));
+    if(!name)return;
+    var placeholder=mi.querySelector(".add-btn-placeholder");
+    if(placeholder){
+      var btn=document.createElement("button");
+      btn.className="add-btn";
+      btn.textContent="+";
+      btn.addEventListener("click",function(e){e.stopPropagation();e.preventDefault();addToCart(name,price);});
+      placeholder.appendChild(btn);
+    }
+  });
 }
 function updateUI(cur){if(!pageFlip)return;if(cur===undefined)cur=pageFlip.getCurrentPageIndex();var dots=document.querySelectorAll(".nav-dot");if(dots.length>0){dots.forEach(function(d,i){d.classList.toggle("active",i===cur)});}document.getElementById("pageIndicator").textContent="Page "+(cur+1)+" / "+totalPages;document.getElementById("prevBtn").disabled=cur===0;document.getElementById("nextBtn").disabled=cur===totalPages-1;}
 document.getElementById("prevBtn").addEventListener("click",function(){if(pageFlip&&Date.now()-lastFlipTime>400){var c=pageFlip.getCurrentPageIndex();if(c>0)pageFlip.flip(c-1);lastFlipTime=Date.now()}});
