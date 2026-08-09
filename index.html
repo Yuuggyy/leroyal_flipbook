@@ -151,23 +151,7 @@ function initBook(){
   pageFlip.on("changeState",function(e){if(e.data==="read")updateUI()});
   updateUI();
   // Inject add buttons after StPageFlip renders
-  setTimeout(function(){
-    var menuItems=document.querySelectorAll(".page-item .menu-item, .stf__item .menu-item");
-    menuItems.forEach(function(mi){
-      if(mi.querySelector(".add-btn"))return;
-      var name=mi.getAttribute("data-name");
-      var price=parseFloat(mi.getAttribute("data-price"));
-      if(!name)return;
-      var placeholder=mi.querySelector(".add-btn-placeholder");
-      if(placeholder){
-        var btn=document.createElement("button");
-        btn.className="add-btn";
-        btn.textContent="+";
-        btn.addEventListener("click",function(e){e.stopPropagation();e.preventDefault();addToCart(name,price);});
-        placeholder.appendChild(btn);
-      }
-    });
-  },500);
+  setTimeout(injectAddButtons,500);
 }
 function injectAddButtons(){
   var menuItems=document.querySelectorAll(".page-item .menu-item, .stf__item .menu-item");
@@ -181,6 +165,10 @@ function injectAddButtons(){
       var btn=document.createElement("button");
       btn.className="add-btn";
       btn.textContent="+";
+      // Block ALL events from reaching StPageFlip (mousedown, touchstart, click)
+      ["mousedown","touchstart","touchend","click","pointerdown","pointerup"].forEach(function(ev){
+        btn.addEventListener(ev,function(e){e.stopPropagation();e.preventDefault();e.stopImmediatePropagation();},{capture:true});
+      });
       btn.addEventListener("click",function(e){e.stopPropagation();e.preventDefault();addToCart(name,price);});
       placeholder.appendChild(btn);
     }
