@@ -8,20 +8,21 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--gold:#c9a227;--gold-light:#e8d588;--royal-blue:#1a2a6c;--cream:#f5f0e8}
-html,body{height:100%;overflow:hidden}
-body{background:radial-gradient(ellipse at center,#1a1a2e 0%,#0a0a0a 100%);font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center}
+html,body{height:100%;overflow:hidden;background:#0a0a0a}
+body{font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center}
 #particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
-.header{position:fixed;top:0;left:0;width:100%;padding:20px 30px;z-index:100;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,rgba(10,10,10,0.9) 0%,transparent 100%)}
+.header{position:fixed;top:0;left:0;width:100%;padding:20px 30px;z-index:100;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(180deg,rgba(10,10,10,0.9) 0%,transparent 100%);pointer-events:none}
 .logo{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--gold);letter-spacing:2px;text-transform:uppercase}
 .logo span{color:var(--cream);font-weight:400;font-size:14px;display:block;letter-spacing:4px}
-.nav-dots{display:flex;gap:10px}
+.nav-dots{display:flex;gap:10px;pointer-events:auto}
 .nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.2);cursor:pointer;transition:all 0.4s}
 .nav-dot.active{background:var(--gold);box-shadow:0 0 12px var(--gold);transform:scale(1.3)}
 
-#book{margin:0 auto;z-index:10}
-.stf__wrapper{z-index:10!important}
-.stf__parent{margin-top:20px}
-.page-item{background:var(--cream);overflow:hidden;color:#222;width:100%;height:100%}
+/* Book container - must have explicit dimensions for StPageFlip */
+#book-container{position:relative;z-index:10;margin-top:40px}
+.page-item{width:100%;height:100%;overflow:hidden}
+
+/* Page backgrounds */
 .page-cover{background:linear-gradient(135deg,var(--royal-blue) 0%,#0a0a1a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cream);text-align:center;padding:40px;position:relative;width:100%;height:100%}
 .page-cover::before{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:2px solid var(--gold);border-radius:4px;opacity:0.4}
 .page-cover h1{font-family:'Playfair Display',serif;font-size:42px;color:var(--gold);margin-bottom:10px;letter-spacing:3px}
@@ -30,123 +31,89 @@ body{background:radial-gradient(ellipse at center,#1a1a2e 0%,#0a0a0a 100%);font-
 .page-cover .ornament::before,.page-cover .ornament::after{content:'◆';position:absolute;color:var(--gold);font-size:12px;top:-7px}
 .page-cover .ornament::before{left:-18px}.page-cover .ornament::after{right:-18px}
 .shimmer{position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);animation:shimmer 3s infinite}
-.page-menu{background:var(--cream);padding:40px 30px;overflow-y:auto;height:100%;width:100%}
-.page-menu h2{font-family:'Playfair Display',serif;font-size:24px;color:var(--royal-blue);text-align:center;margin-bottom:5px;letter-spacing:1px}
-.page-menu .category-line{width:80px;height:2px;background:var(--gold);margin:8px auto 25px}
-.menu-item{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;padding-bottom:15px;border-bottom:1px dotted rgba(0,0,0,0.15)}
-.menu-item-info h3{font-family:'Playfair Display',serif;font-size:16px;color:#222;margin-bottom:3px}
-.menu-item-info p{font-size:12px;color:#666;max-width:220px;line-height:1.4}
-.menu-item-price{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);font-weight:700;white-space:nowrap}
+.page-menu{background:var(--cream);padding:35px 25px;overflow-y:auto;height:100%;width:100%}
+.page-menu h2{font-family:'Playfair Display',serif;font-size:22px;color:var(--royal-blue);text-align:center;margin-bottom:5px;letter-spacing:1px}
+.page-menu .category-line{width:80px;height:2px;background:var(--gold);margin:8px auto 22px}
+.menu-item{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;padding-bottom:14px;border-bottom:1px dotted rgba(0,0,0,0.15)}
+.menu-item-info h3{font-family:'Playfair Display',serif;font-size:15px;color:#222;margin-bottom:3px}
+.menu-item-info p{font-size:11px;color:#666;max-width:200px;line-height:1.4}
+.menu-item-price{font-family:'Playfair Display',serif;font-size:17px;color:var(--gold);font-weight:700;white-space:nowrap}
 .page-featured{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center;color:var(--cream);height:100%;width:100%}
-.page-featured .img-circle{width:180px;height:180px;border-radius:50%;border:3px solid var(--gold);box-shadow:0 0 30px rgba(201,162,39,0.3);margin-bottom:25px;background:url('https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400') center/cover}
-.page-featured h2{font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);margin-bottom:10px}
-.page-featured p{color:var(--cream);font-size:14px;line-height:1.6;max-width:280px;opacity:0.8}
-.page-featured .price-tag{margin-top:20px;font-family:'Playfair Display',serif;font-size:32px;color:var(--gold-light);font-weight:700}
+.page-featured .img-circle{width:160px;height:160px;border-radius:50%;border:3px solid var(--gold);box-shadow:0 0 30px rgba(201,162,39,0.3);margin-bottom:20px;background:url('https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400') center/cover}
+.page-featured h2{font-family:'Playfair Display',serif;font-size:26px;color:var(--gold);margin-bottom:10px}
+.page-featured p{color:var(--cream);font-size:13px;line-height:1.6;max-width:260px;opacity:0.8}
+.page-featured .price-tag{margin-top:20px;font-family:'Playfair Display',serif;font-size:30px;color:var(--gold-light);font-weight:700}
 .page-contact{background:linear-gradient(135deg,var(--royal-blue) 0%,#0a0a1a 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center;color:var(--cream);position:relative;height:100%;width:100%}
 .page-contact::before{content:'';position:absolute;top:20px;left:20px;right:20px;bottom:20px;border:2px solid var(--gold);border-radius:4px;opacity:0.3}
-.page-contact h2{font-family:'Playfair Display',serif;font-size:32px;color:var(--gold);margin-bottom:20px}
+.page-contact h2{font-family:'Playfair Display',serif;font-size:30px;color:var(--gold);margin-bottom:20px}
 .contact-info{font-size:14px;line-height:2;opacity:0.9}
-.call-button{margin-top:25px;padding:15px 40px;background:var(--gold);color:#0a0a0a;border:none;border-radius:30px;font-family:'Inter',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all 0.3s;letter-spacing:1px;text-transform:uppercase}
+.call-button{margin-top:25px;padding:14px 36px;background:var(--gold);color:#0a0a0a;border:none;border-radius:30px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.3s;letter-spacing:1px;text-transform:uppercase}
 .call-button:hover{transform:scale(1.05);box-shadow:0 5px 25px rgba(201,162,39,0.4)}
-.controls{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);display:flex;gap:15px;z-index:100}
-.control-btn{width:50px;height:50px;border-radius:50%;border:2px solid var(--gold);background:rgba(10,10,10,0.7);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;backdrop-filter:blur(10px)}
-.control-btn:hover{background:var(--gold);color:#0a0a0a;transform:scale(1.1);box-shadow:0 0 20px rgba(201,162,39,0.4)}
+
+.controls{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);display:flex;gap:15px;z-index:100}
+.control-btn{width:48px;height:48px;border-radius:50%;border:2px solid var(--gold);background:rgba(10,10,10,0.7);color:var(--gold);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s;backdrop-filter:blur(10px)}
+.control-btn:hover{background:var(--gold);color:#0a0a0a;transform:scale(1.1)}
 .control-btn:disabled{opacity:0.3}
-.page-indicator{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);color:var(--gold-light);font-size:13px;letter-spacing:2px;z-index:100;opacity:0.6}
-.swipe-hint{position:fixed;bottom:15px;right:20px;color:var(--gold-light);font-size:11px;opacity:0.4;z-index:100;animation:pulse 2s infinite}
+.page-indicator{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);color:var(--gold-light);font-size:12px;letter-spacing:2px;z-index:100;opacity:0.6}
+.swipe-hint{position:fixed;bottom:12px;right:20px;color:var(--gold-light);font-size:11px;opacity:0.4;z-index:100;animation:pulse 2s infinite}
 .loading-msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--gold);font-size:18px;z-index:200;text-align:center}
 @keyframes pulse{0%,100%{opacity:0.4}50%{opacity:0.8}}
 @keyframes shimmer{0%{left:-100%}100%{left:200%}}
-@media(max-width:600px){
-  .page-cover h1{font-size:32px}
-  .page-featured .img-circle{width:140px;height:140px}
-  .menu-item-info h3{font-size:14px}
-  .menu-item-info p{font-size:11px;max-width:180px}
-  .menu-item-price{font-size:15px}
-  .page-menu{padding:30px 20px}
-  .logo{font-size:22px}
-  .header{padding:15px 20px}
-}
+@media(max-width:600px){.page-cover h1{font-size:32px}.page-featured .img-circle{width:130px;height:130px}.logo{font-size:22px}.header{padding:15px 20px}}
 </style>
 </head>
 <body>
 <canvas id="particles"></canvas>
 <div class="header"><div class="logo">LE ROYAL<span>Restaurant</span></div><div class="nav-dots" id="navDots"></div></div>
 <div class="loading-msg" id="loadingMsg">Chargement du menu...</div>
-<div id="book"></div>
+<div id="book-container" style="display:none">
+  <div id="book">
+    <div class="page-item" data-density="hard"><div class="page-cover"><div class="shimmer"></div><h1>LE ROYAL</h1><div class="ornament"></div><p class="subtitle">Menu Gastronomique</p><p class="subtitle" style="margin-top:15px;font-size:12px;letter-spacing:3px">Cuisine Fine &amp; Saveurs</p></div></div>
+    <div class="page-item"><div class="page-menu"><h2>Entrées</h2><div class="category-line"></div><div class="menu-item"><div class="menu-item-info"><h3>Salade César Royale</h3><p>Laitue romaine, parmesan, croûtons, poulet grillé, sauce maison</p></div><div class="menu-item-price">12$</div></div><div class="menu-item"><div class="menu-item-info"><h3>Bruschetta Méditerranée</h3><p>Pain grillé, tomates fraîches, basilic, mozzarella</p></div><div class="menu-item-price">8$</div></div><div class="menu-item"><div class="menu-item-info"><h3>Carpaccio de Bœuf</h3><p>Fines tranches de bœuf, roquette, parmesan, huile de truffe</p></div><div class="menu-item-price">15$</div></div><div class="menu-item"><div class="menu-item-info"><h3>Soupe de Poissons</h3><p>Bouillon de la mer, safran, croûtons, rouille</p></div><div class="menu-item-price">10$</div></div><div class="menu-item"><div class="menu-item-info"><h3>Foie Gras Poêlé</h3><p>Foie gras, chutney de figues, pain brioché</p></div><div class="menu-item-price">18$</div></div></div></div>
+    <div class="page-item"><div class="page-menu"><h2>Plats Principaux</h2><div class="category-line"></div><div class="menu-item"><div class="menu-item-info"><h3>Filet de Bœuf Rossini</h3><p>Filet de bœuf, foie gras, sauce Périgueux, gratin dauphinois</p></div><div class="menu-item-price">28$</div></div><div class="menu-item"><div class="menu-item-info"><h3>Poulet Braisé Royal</h3><p>Poulet fermier, sauce moutarde, légumes de saison, riz pilaf</p></div><div class="menu-item-price">16$</div></div><div class="menu-item"><div class="menu-item-info"><h3>Poisson du Marché</h3><p>Filet de poisson, beurre blanc, asperges, riz safrané</p></div><div class="menu-item-price">22$</div></div><div class="menu-item"><div class="menu-item-info"><h3>Côtelette d'Agneau</h3><p>Côtelettes, jus d'herbes, purée de patate douce</p></div><div class="menu-item-price">24$</div></div></div></div>
+    <div class="page-item"><div class="page-featured"><div class="img-circle"></div><h2>Homard Thermidor</h2><p>Homard frais, sauce thermidor, gratiné au four. Notre plat signature.</p><div class="price-tag">45$</div></div></div>
+    <div class="page-item"><div class="page-menu"><h2>Desserts</h2><div class="category-line"></div><div class="menu-item"><div class="menu-item-info"><h3>Crème Brûlée</h3><p>Crème vanille de Madagascar, caramel croustillant</p></div><div class="menu-item-price">8$</div></div><div class="menu-item"><div class="menu-item-info"><h3>Fondant au Chocolat</h3><p>Cœur coulant, glace vanille, coulis de fruits rouges</p></div><div class="menu-item-price">9$</div></div><div class="menu-item"><div class="menu-item-info"><h3>Tarte Tatin</h3><p>Pommes caramélisées, pâte feuilletée, glace vanille</p></div><div class="menu-item-price">8$</div></div><div class="menu-item"><div class="menu-item-info"><h3>Profiteroles</h3><p>Pâte à choux, glace vanille, sauce chocolat chaud</p></div><div class="menu-item-price">9$</div></div><div class="menu-item"><div class="menu-item-info"><h3>Macarons Assortis</h3><p>Sélection de 6 macarons, parfums du jour</p></div><div class="menu-item-price">12$</div></div></div></div>
+    <div class="page-item" data-density="hard"><div class="page-contact"><h2>Contactez-nous</h2><div class="contact-info">📍 Avenue du Commerce, Kinshasa, RDC<br>📞 +243 999 992 030<br>🕐 Lun - Dim : 11h - 23h</div><button class="call-button" onclick="window.location.href='tel:+243999992030'">Appeler</button></div></div>
+  </div>
+</div>
 <div class="page-indicator" id="pageIndicator" style="display:none">Page 1 / 6</div>
 <div class="controls" style="display:none"><button class="control-btn" id="prevBtn">&#8249;</button><button class="control-btn" id="nextBtn">&#8250;</button></div>
 <div class="swipe-hint" id="swipeHint" style="display:none">&#8592; glissez &#8594;</div>
 
 <script src="page-flip.browser.min.js"></script>
 <script>
-var pages=[
-{type:"cover"},
-{type:"menu",category:"Entr\u00e9es",items:[
-{name:"Salade C\u00e9sar Royale",desc:"Laitue romaine, parmesan, cro\u00fbtons, poulet grill\u00e9, sauce maison",price:"12$"},
-{name:"Bruschetta M\u00e9diterran\u00e9e",desc:"Pain grill\u00e9, tomates fra\u00eeches, basilic, mozzarella",price:"8$"},
-{name:"Carpaccio de B\u0153uf",desc:"Fines tranches de b\u0153uf, roquette, parmesan, huile de truffe",price:"15$"},
-{name:"Soupe de Poissons",desc:"Bouillon de la mer, safran, cro\u00fbtons, rouille",price:"10$"},
-{name:"Foie Gras Po\u00eal\u00e9",desc:"Foie gras, chutney de figues, pain brioch\u00e9",price:"18$"}
-]},
-{type:"menu",category:"Plats Principaux",items:[
-{name:"Filet de B\u0153uf Rossini",desc:"Filet de b\u0153uf, foie gras, sauce P\u00e9rigueux, gratin dauphinois",price:"28$"},
-{name:"Poulet Brais\u00e9 Royal",desc:"Poulet fermier, sauce moutarde, l\u00e9gumes de saison, riz pilaf",price:"16$"},
-{name:"Poisson du March\u00e9",desc:"Filet de poisson, beurre blanc, asperges, riz safran\u00e9",price:"22$"},
-{name:"C\u00f4telette d'Agneau",desc:"C\u00f4telettes, jus d'herbes, pur\u00e9e de patate douce",price:"24$"}
-]},
-{type:"featured",title:"Homard Thermidor",desc:"Homard frais, sauce thermidor, gratin\u00e9 au four. Notre plat signature.",price:"45$"},
-{type:"menu",category:"Desserts",items:[
-{name:"Cr\u00e8me Br\u00fbl\u00e9e",desc:"Cr\u00e8me vanille de Madagascar, caramel croustillant",price:"8$"},
-{name:"Fondant au Chocolat",desc:"C\u0153ur coulant, glace vanille, coulis de fruits rouges",price:"9$"},
-{name:"Tarte Tatin",desc:"Pommes caram\u00e9lis\u00e9es, p\u00e2te feuillet\u00e9e, glace vanille",price:"8$"},
-{name:"Profiteroles",desc:"P\u00e2te \u00e0 choux, glace vanille, sauce chocolat chaud",price:"9$"},
-{name:"Macarons Assortis",desc:"S\u00e9lection de 6 macarons, parfums du jour",price:"12$"}
-]},
-{type:"contact",phone:"+243 999 992 030",address:"Avenue du Commerce, Kinshasa, RDC"}
-];
+var pageFlip=null;
+var totalPages=6;
 
-function coverHTML(){return '<div class="page-cover"><div class="shimmer"></div><h1>LE ROYAL</h1><div class="ornament"></div><p class="subtitle">Menu Gastronomique</p><p class="subtitle" style="margin-top:15px;font-size:12px;letter-spacing:3px">Cuisine Fine &amp; Saveurs</p></div>'}
-function menuHTML(p){return '<div class="page-menu"><h2>'+p.category+'</h2><div class="category-line"></div>'+p.items.map(function(i,d){return '<div class="menu-item"><div class="menu-item-info"><h3>'+i.name+'</h3><p>'+i.desc+'</p></div><div class="menu-item-price">'+i.price+'</div></div>'}).join("")+'</div>'}
-function featuredHTML(p){return '<div class="page-featured"><div class="img-circle"></div><h2>'+p.title+'</h2><p>'+p.desc+'</p><div class="price-tag">'+p.price+'</div></div>'}
-function contactHTML(p){var cp=p.phone.replace(/\s/g,'');return '<div class="page-contact"><h2>Contactez-nous</h2><div class="contact-info">\ud83d\udccd '+p.address+'<br>\ud83d\udcde '+p.phone+'<br>\ud83d\udd50 Lun - Dim : 11h - 23h</div><button class="call-button" onclick="window.location.href=\'tel:'+cp+'\'">Appeler</button></div>'}
-function contentFor(p){if(p.type==="cover")return coverHTML();if(p.type==="menu")return menuHTML(p);if(p.type==="featured")return featuredHTML(p);if(p.type==="contact")return contactHTML(p);return ""}
-
-// Build page DOM elements
-var bookEl=document.getElementById("book");
-pages.forEach(function(p,i){
-  var pageDiv=document.createElement("div");
-  pageDiv.className="page-item";
-  if(i===0||i===pages.length-1) pageDiv.setAttribute("data-density","hard");
-  pageDiv.innerHTML=contentFor(p);
-  bookEl.appendChild(pageDiv);
-});
-
-// Wait for library to load, then init
-function initPageFlip(){
+function initBook(){
   if(typeof St==="undefined"||!St.PageFlip){
-    // Retry if library not loaded yet
-    setTimeout(initPageFlip,100);
+    setTimeout(initBook,100);
     return;
   }
 
-  var pageFlip=new St.PageFlip(bookEl,{
+  var bookEl=document.getElementById("book");
+
+  // Calculate dimensions based on screen
+  var w=Math.min(window.innerWidth-20,400);
+  var h=Math.min(window.innerHeight-120,580);
+
+  pageFlip=new St.PageFlip(bookEl,{
     width:380,
     height:520,
     size:"stretch",
     minWidth:280,
-    maxWidth:800,
-    minHeight:400,
-    maxHeight:650,
+    maxWidth:450,
+    minHeight:380,
+    maxHeight:620,
     drawShadow:true,
     flippingTime:600,
     usePortrait:true,
     startZIndex:0,
     autoSize:true,
-    maxShadowOpacity:0.7,
+    maxShadowOpacity:0.6,
     showCover:true,
     mobileScrollSupport:true,
-    swipeDistance:25,
+    swipeDistance:20,
     clickEventForward:true,
     useMouseEvents:true,
     disableFlipByClick:false
@@ -154,50 +121,49 @@ function initPageFlip(){
 
   pageFlip.loadFromHTML(document.querySelectorAll(".page-item"));
 
-  // Hide loading, show UI
+  // Show UI
   document.getElementById("loadingMsg").style.display="none";
+  document.getElementById("book-container").style.display="block";
   document.getElementById("pageIndicator").style.display="block";
   document.querySelector(".controls").style.display="flex";
   document.getElementById("swipeHint").style.display="block";
 
-  // Nav dots
+  // Build nav dots
   var navDots=document.getElementById("navDots");
-  var pageIndicator=document.getElementById("pageIndicator");
-
-  // Clear existing dots and rebuild
   navDots.innerHTML="";
-  pages.forEach(function(p,i){
+  for(var i=0;i<totalPages;i++){
     var d=document.createElement("div");
     d.className="nav-dot"+(i===0?" active":"");
-    d.onclick=function(){pageFlip.flip(i)};
+    (function(idx){d.onclick=function(){if(pageFlip)pageFlip.flip(idx)}})(i);
     navDots.appendChild(d);
-  });
-
-  function updateUI(){
-    var cur=pageFlip.getCurrentPageIndex();
-    document.querySelectorAll(".nav-dot").forEach(function(d,i){d.classList.toggle("active",i===cur)});
-    pageIndicator.textContent="Page "+(cur+1)+" / "+pages.length;
-    document.getElementById("prevBtn").disabled=cur===0;
-    document.getElementById("nextBtn").disabled=cur===pages.length-1;
   }
 
-  pageFlip.on("flip",function(e){updateUI()});
+  pageFlip.on("flip",function(e){updateUI(e.data)});
   pageFlip.on("changeState",function(e){if(e.data==="read")updateUI()});
-
-  document.getElementById("prevBtn").addEventListener("click",function(){pageFlip.flipPrev()});
-  document.getElementById("nextBtn").addEventListener("click",function(){pageFlip.flipNext()});
 
   updateUI();
 }
 
-// Start init
-initPageFlip();
+function updateUI(cur){
+  if(!pageFlip)return;
+  if(cur===undefined)cur=pageFlip.getCurrentPageIndex();
+  document.querySelectorAll(".nav-dot").forEach(function(d,i){d.classList.toggle("active",i===cur)});
+  document.getElementById("pageIndicator").textContent="Page "+(cur+1)+" / "+totalPages;
+  document.getElementById("prevBtn").disabled=cur===0;
+  document.getElementById("nextBtn").disabled=cur===totalPages-1;
+}
+
+document.getElementById("prevBtn").addEventListener("click",function(){if(pageFlip)pageFlip.flipPrev()});
+document.getElementById("nextBtn").addEventListener("click",function(){if(pageFlip)pageFlip.flipNext()});
+
+// Start
+initBook();
 
 // Particles
 var c=document.getElementById("particles");
 var cx=c.getContext("2d");
 var ps=[];
-function ip(){c.width=innerWidth;c.height=innerHeight;ps=[];for(var i=0;i<Math.min(60,Math.floor(innerWidth/20));i++){ps.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+0.5,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,o:Math.random()*0.5+0.1})}}
+function ip(){c.width=innerWidth;c.height=innerHeight;ps=[];for(var i=0;i<Math.min(50,Math.floor(innerWidth/25));i++){ps.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*2+0.5,vx:(Math.random()-0.5)*0.3,vy:(Math.random()-0.5)*0.3,o:Math.random()*0.5+0.1})}}
 function ap(){cx.clearRect(0,0,c.width,c.height);ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>c.width)p.vx*=-1;if(p.y<0||p.y>c.height)p.vy*=-1;cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fillStyle="rgba(201,162,39,"+p.o+")";cx.fill()});requestAnimationFrame(ap)}
 ip();ap();
 addEventListener("resize",ip);
